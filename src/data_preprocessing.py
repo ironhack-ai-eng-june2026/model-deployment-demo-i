@@ -1,5 +1,7 @@
 """Reusable functions to preprocess the Titanic dataset."""
 
+import json
+import os
 
 
 FEATURES = ["pclass", "sex", "age", "fare", "embarked"]
@@ -7,6 +9,10 @@ TARGET = "survived"
 
 SEX_MAPPING = {"male": 0, "female": 1}
 EMBARKED_MAPPING = {"S": 0, "C": 1, "Q": 2}
+
+IMPUTE_VALUES_PATH = os.path.join(
+    os.path.dirname(__file__), "..", "models", "impute_values.json"
+)
 
 
 
@@ -27,6 +33,45 @@ def compute_imputation_values(df):
         "age": df["age"].median(),
         "embarked": df["embarked"].mode()[0],
     }
+
+
+def save_impute_values(impute_values, path=IMPUTE_VALUES_PATH):
+    """
+    Persists imputation statistics to a JSON file so they can be reused at
+    inference time without recomputing them from the training data.
+
+    Args:
+        impute_values: A dict (as returned by `compute_imputation_values`).
+        path: Where to write the JSON file. Defaults to `IMPUTE_VALUES_PATH`
+            (models/impute_values.json).
+    """
+
+    # Cast to native Python types: pandas/numpy scalars (e.g. numpy.float64
+    # from `.median()`) aren't JSON-serializable as-is.
+    serializable_values = {
+        "age": float(impute_values["age"]),
+        "embarked": str(impute_values["embarked"]),
+    }
+
+    with open(path, "w") as f:
+        json.dump(serializable_values, f)
+
+
+def load_impute_values(path=IMPUTE_VALUES_PATH):
+    """
+    Loads imputation statistics previously saved by `save_impute_values`.
+
+    Args:
+        path: Where to read the JSON file from. Defaults to
+            `IMPUTE_VALUES_PATH` (models/impute_values.json).
+
+    Returns:
+        A dict with 'age' and 'embarked' fill values, ready to pass to
+        `fill_missing_values`.
+    """
+
+    with open(path) as f:
+        return json.load(f)
 
 
 def fill_missing_values(df, impute_values):
