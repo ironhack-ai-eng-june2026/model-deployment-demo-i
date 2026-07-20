@@ -1,0 +1,118 @@
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: #e0e5ec;
+  color: #3d4457;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border-radius: 24px;
+  background: #e0e5ec;
+  box-shadow: 9px 9px 16px #b8bec7, -9px -9px 16px #ffffff;
+}
+
+h1 {
+  margin: 0 0 24px;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input,
+select {
+  font: inherit;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 14px;
+  background: #e0e5ec;
+  box-shadow: inset 5px 5px 10px #b8bec7, inset -5px -5px 10px #ffffff;
+  color: #3d4457;
+  outline: none;
+  transition: box-shadow 0.15s ease;
+}
+
+input:focus,
+select:focus {
+  box-shadow: inset 3px 3px 6px #b8bec7, inset -3px -3px 6px #ffffff;
+}
+
+button {
+  margin-top: 8px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #e0e5ec;
+  color: #3d4457;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 6px 6px 12px #b8bec7, -6px -6px 12px #ffffff;
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+button:hover:not(:disabled) {
+  box-shadow: 4px 4px 8px #b8bec7, -4px -4px 8px #ffffff;
+}
+
+button:active:not(:disabled) {
+  box-shadow: inset 4px 4px 8px #b8bec7, inset -4px -4px 8px #ffffff;
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.result {
+  margin: 24px 0 0;
+  padding: 16px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: 700;
+  box-shadow: inset 4px 4px 8px #b8bec7, inset -4px -4px 8px #ffffff;
+}
+
+.result.survived {
+  color: #2e7d55;
+}
+
+.result.not-survived {
+  color: #a13d3d;
+}
+
+.result.error {
+  color: #a13d3d;
+}
