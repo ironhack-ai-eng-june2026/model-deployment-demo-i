@@ -1,0 +1,12 @@
+{
+  "builds": [
+    {
+      "src": "api/main.py",
+      "use": "@vercel/python",
+      "config": { "includeFiles": ["models/**", "src/**"] }
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "api/main.py" }
+  ]
+}
